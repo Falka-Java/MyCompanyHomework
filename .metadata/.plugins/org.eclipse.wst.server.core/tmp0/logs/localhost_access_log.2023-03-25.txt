@@ -88,3 +88,4 @@
 127.0.0.1 - - [25/Mar/2023:00:37:00 +0100] "GET /MyCompanyHomework/Home?page=about HTTP/1.1" 200 2989
 127.0.0.1 - - [25/Mar/2023:00:37:04 +0100] "GET /MyCompanyHomework/Home?page=feedback HTTP/1.1" 200 2995
 127.0.0.1 - - [25/Mar/2023:00:37:24 +0100] "GET /MyCompanyHomework/Home?page=contacts HTTP/1.1" 200 2995
+127.0.0.1 - - [25/Mar/2023:00:38:39 +0100] "GET / HTTP/1.1" 404 751
