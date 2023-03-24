@@ -1,0 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<%@ include file="views/layouts/head.jsp" %>
+
+</head>
+<body>
+	<head>
+	</head>
+
+<footer>
+	<
+</footer>
+
+</body>
+</html>
