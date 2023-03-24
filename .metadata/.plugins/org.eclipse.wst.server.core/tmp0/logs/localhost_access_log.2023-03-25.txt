@@ -3,3 +3,11 @@
 127.0.0.1 - - [25/Mar/2023:00:44:37 +0100] "GET /MyCompanyHomework/static/css/base.css HTTP/1.1" 304 -
 127.0.0.1 - - [25/Mar/2023:00:44:41 +0100] "GET /MyCompanyHomework/Home?page=about HTTP/1.1" 200 2989
 127.0.0.1 - - [25/Mar/2023:00:49:09 +0100] "GET / HTTP/1.1" 404 751
+127.0.0.1 - - [25/Mar/2023:00:52:30 +0100] "GET / HTTP/1.1" 404 751
+127.0.0.1 - - [25/Mar/2023:00:52:31 +0100] "GET /MyCompanyHomework/Home?page=about HTTP/1.1" 200 2989
+127.0.0.1 - - [25/Mar/2023:00:52:31 +0100] "GET /MyCompanyHomework/static/css/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [25/Mar/2023:00:52:34 +0100] "GET /MyCompanyHomework/Home?page=fdfds HTTP/1.1" 200 2885
+127.0.0.1 - - [25/Mar/2023:00:52:38 +0100] "GET /MyCompanyHomework/Home HTTP/1.1" 500 1250
+127.0.0.1 - - [25/Mar/2023:00:52:39 +0100] "GET /favicon.ico HTTP/1.1" 404 762
+127.0.0.1 - - [25/Mar/2023:00:54:19 +0100] "GET /MyCompanyHomework/Home HTTP/1.1" 200 2868
+127.0.0.1 - - [25/Mar/2023:00:54:23 +0100] "GET /MyCompanyHomework/Home?page=about HTTP/1.1" 200 2989
