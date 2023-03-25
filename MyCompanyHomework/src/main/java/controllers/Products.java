@@ -1,39 +1,42 @@
 package controllers;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import services.ProductsService;
+
 import java.io.IOException;
 
-/**
- * Servlet implementation class Products
- */
 public class Products extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+	private ProductsService productsService;
     public Products() {
         super();
-        // TODO Auto-generated constructor stub
+        productsService = new ProductsService();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String page = request.getParameter("page");
+		switch(page) {
+		case "admin":
+			getAdminPage(request,response);
+			break;
+		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	private void getAdminPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("title", "- Products");
+		request.setAttribute("service", productsService);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("views/products/admin.jsp");
+		dispatcher.forward(request, response);
+	}
+	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
