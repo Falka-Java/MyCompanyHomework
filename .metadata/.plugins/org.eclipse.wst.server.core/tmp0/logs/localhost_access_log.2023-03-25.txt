@@ -56,3 +56,14 @@
 127.0.0.1 - - [25/Mar/2023:16:42:16 +0100] "GET /MyCompanyHomework/static/img/favicon.ico HTTP/1.1" 404 803
 127.0.0.1 - - [25/Mar/2023:16:42:19 +0100] "GET /MyCompanyHomework/Departments?page=admin HTTP/1.1" 200 29
 127.0.0.1 - - [25/Mar/2023:16:42:24 +0100] "GET /MyCompanyHomework/Departments?page=admin HTTP/1.1" 200 29
+127.0.0.1 - - [25/Mar/2023:23:11:50 +0100] "GET / HTTP/1.1" 404 751
+127.0.0.1 - - [25/Mar/2023:23:11:50 +0100] "GET / HTTP/1.1" 404 751
+127.0.0.1 - - [25/Mar/2023:23:11:50 +0100] "GET /favicon.ico HTTP/1.1" 404 762
+127.0.0.1 - - [25/Mar/2023:23:11:51 +0100] "GET / HTTP/1.1" 404 751
+127.0.0.1 - - [25/Mar/2023:23:11:54 +0100] "GET /MyCompanyHomework/ HTTP/1.1" 200 3824
+127.0.0.1 - - [25/Mar/2023:23:11:55 +0100] "GET /MyCompanyHomework/static/css/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [25/Mar/2023:23:11:55 +0100] "GET /MyCompanyHomework/static/img/favicon.ico HTTP/1.1" 404 803
+127.0.0.1 - - [25/Mar/2023:23:11:57 +0100] "GET /MyCompanyHomework/Departments?page=admin HTTP/1.1" 200 3839
+127.0.0.1 - - [25/Mar/2023:23:44:16 +0100] "GET /MyCompanyHomework/Departments?page=admin HTTP/1.1" 200 4441
+127.0.0.1 - - [25/Mar/2023:23:44:27 +0100] "GET /MyCompanyHomework/Departments?page=admin HTTP/1.1" 200 4442
+127.0.0.1 - - [25/Mar/2023:23:48:22 +0100] "GET /MyCompanyHomework/Departments?page=admin HTTP/1.1" 200 6384

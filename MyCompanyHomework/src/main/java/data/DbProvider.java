@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DbProvider {
-	private static final String DB_DRIVER ="com.mysql.jdbc.Driver";
+	private static final String DB_DRIVER ="com.mysql.cj.jdbc.Driver";
 	private static final String DB_HOST ="jdbc:mysql://localhost:3306/mycompany_db";
 	private static final String DB_USER ="root";
 	private static final String DB_PASS ="root";

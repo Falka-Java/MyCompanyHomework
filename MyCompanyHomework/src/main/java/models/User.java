@@ -6,9 +6,9 @@ public class User {
 	private String passw;
 	private String email;
 	private String regdate;
-	private int roleId;
-	private int statusId;
-	private int mailConfirm;
+	private int roleId; // default - 1 user
+	private int statusId; // defaulrt- 1 unconfirmed
+	private int mailConfirm; //auto-default - 0
 	public User(int id, String login, String passw, String email, String regdate, int roleId, int statusId,
 			int mailConfirm) {
 		super();
