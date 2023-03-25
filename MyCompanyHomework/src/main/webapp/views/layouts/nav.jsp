@@ -10,24 +10,53 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="index.jsp">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" href="Home?page=about">About</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
+        <a class="nav-link" href="News?page=list">News</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Products?page=catalog">Products</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="Home?page=contacts">Contacts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Home?page=feedback">Feedback</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown link
+          Admin
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="Departments?page=admin">Departments</a>
+          <a class="dropdown-item" href="Employes?page=admin">Employees</a>
+          <a class="dropdown-item" href="Users?page=admin">Users</a>
         </div>
       </li>
     </ul>
+    
+    <ul class="navbar-nav ml-auto">
+    	<li class="nav-item">
+    		<a class="nav-link" href="#" style="margin-right: 75px">
+    			<span style="color:bisque">Hello, Guest!</span>
+    		</a>
+    	</li>
+    	
+    	<li class="nav-item">
+    		<a class="nav-link" href="Auth?page=signin">
+    			Login
+    		</a>
+    	</li>
+    	<li class="nav-item">
+    		<a class="nav-link" href="Auth?page=singup">
+    			Registration
+    		</a>
+    	</li>
+    </ul>
+    
   </div>
 </nav>
