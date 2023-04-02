@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ page import="jakarta.servlet.http.Cookie" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">MyCompany</a>
+  <a class="navbar-brand" href="#">MyComp	any</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -39,13 +40,42 @@
       </li>
     </ul>
     
+    <%
+   	String user = (String)request.getSession().getAttribute("user");
+    if(user==null){
+    	Cookie[] cookies = request.getCookies();
+    	if(cookies != null){
+    		for(Cookie cookie : cookies){
+    			if(cookie.getName().equals("user")){
+    				user = cookie.getValue();
+    				break;
+    			}
+    		}
+    	}
+    }
+    pageContext.setAttribute("user", user);
+    
+    %>
+    
     <ul class="navbar-nav ml-auto">
     	<li class="nav-item">
     		<a class="nav-link" href="#" style="margin-right: 75px">
-    			<span style="color:bisque">Hello, Guest!</span>
+    			Hello, 
+    			
+    			<c:if test="${user != null}">
+    				<span style="color:lime">
+    					<c:out value="${user}"/>!
+    				</span>
+    			</c:if>
+    			
+    			<c:if test="${user == null}">
+    				<span style="color:bisque">
+    					Guest!
+    				</span>
+    			</c:if>
     		</a>
     	</li>
-    	
+    	<c:if test="${user==null}">
     	<li class="nav-item">
     		<a class="nav-link" href="Auth?page=signin">
     			Login
@@ -56,6 +86,21 @@
     			Registration
     		</a>
     	</li>
+    	</c:if>
+    	
+  	    	<c:if test="${user!=null}">
+  	    	
+  	    	<li class="nav-item">
+    		<a class="nav-link" href="Auth?page=profile">
+    			Profile
+    		</a>
+    	</li>
+    	<li class="nav-item">
+    		<a class="nav-link" href="Auth?page=signout">
+    			Logout
+    		</a>
+    	</li>
+    	</c:if>
     </ul>
     
   </div>

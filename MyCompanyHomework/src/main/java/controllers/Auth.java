@@ -1,11 +1,15 @@
 package controllers;
 
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import services.EmailService;
 import services.UsersService;
 
 import java.io.IOException;
@@ -15,6 +19,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import javax.mail.MessagingException;
 
 /**
  * Servlet implementation class Auth
@@ -40,10 +46,13 @@ public class Auth extends HttpServlet {
 			getSinginPage(request,response);
 			break;
 		case "signout":
+			doSignOut(request, response);
 			break;
 		case "profile":
 			break;
 		case "confirm":
+			String email = request.getParameter("email");
+			//getConfirmPage(request, response, email);
 			break;
 		
 		}
@@ -62,6 +71,12 @@ public class Auth extends HttpServlet {
 		dispatcher.forward(request, response);
 		}
 	
+	
+	private void getConfirmPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("title", "- Confirm");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("views/auth/confirm.jsp");
+		dispatcher.forward(request, response);
+		}
 	/*===============================================*/
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -78,6 +93,27 @@ public class Auth extends HttpServlet {
 		}
 	}
 
+	protected void doSignOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String user = (String)session.getAttribute("user");
+		if(user!=null) {
+			session.invalidate();
+		}
+		// ->
+		Cookie[] cookies = request.getCookies();
+		if(cookies != null) {
+			for(Cookie cookie : cookies) {
+				if(cookie.getName().equals("user")) {
+					cookie.setMaxAge(0);
+					response.addCookie(cookie);
+					break;
+				}
+			}
+		}
+		
+		getSinginPage(request, response);
+	}
+	
 	private String getMD5Hash(String initString) {
 		String hashedString = "";
 		
@@ -113,6 +149,30 @@ public class Auth extends HttpServlet {
 		if(resultSuccess) {
 			color="green";
 			message = "Registration successfull!";
+			
+			ServletContext context = getServletContext();
+			String user = context.getInitParameter("user");
+			String pass = context.getInitParameter("pass");
+			String host = context.getInitParameter("host");
+			String port = context.getInitParameter("port");
+			
+			String address = inputEmail;
+			String topic = "MyCompany - confirm registration";
+			String confirmUrl = "http://localhost:8080/MyCompanyHomework/Auth?page=confirm&email="+inputEmail;
+			
+			String html ="<h2>Registration on MyCompany website successfull!</h2>";
+			html += "<hr/><h3>To activate your account use this link:<br/></h3>";
+			html += String.format("<a href=\"%s\">Confirm registraion</a></h3>", confirmUrl);
+			
+			
+			try {
+				EmailService.sendEmail(host, port, user, pass, address, topic, html);
+				
+			}catch(MessagingException ex) {
+				System.out.println("Messaging Exception - " + ex.getMessage());
+				color = "red";
+				message = "Error sending confirmation emails";
+			}
 		}else {
 			color="red";
 			message="Registration failed";
@@ -122,13 +182,47 @@ public class Auth extends HttpServlet {
 		request.setAttribute("title", "- Registration result");
 		request.setAttribute("color", color);
 		request.setAttribute("message", message);
+		request.setAttribute("email", inputEmail);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("views/auth/singup_res.jsp");
 		dispatcher.forward(request, response);
 		
 	}
 	
-	private void handleSingIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void handleSingIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		String inputLogin = request.getParameter("login");
+		String inputPass = request.getParameter("pass");
+		String remember = request.getParameter("remember");
+		
+		String hashedPassword = getMD5Hash(inputPass);
+		boolean resultSuccess = usersService.loginUser(inputLogin, hashedPassword);
+		String color="";
+		String message="";
+		if(resultSuccess) {
+			color="green";
+			message = "Authorization successfull!";
+			HttpSession session = request.getSession();
+			session.setAttribute("user", inputLogin);
+			
+			// Save constant status
+			if(remember != null && remember.equals("yes")) {
+				Cookie cookie = new Cookie("user", inputLogin);
+				cookie.setMaxAge(3600* 24);
+				response.addCookie(cookie);
+			}
+			
+		}else {
+			color="red";
+			message="Authorization failed!";
+		}
+		
+		request.setAttribute("title", "- Authorization result");
+		request.setAttribute(color, "color");
+		request.setAttribute("message", message);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("views/auth/singin_res.jsp");
+		dispatcher.forward(request, response);
 		
 	}
-		//Login handler
-	}
+
+	
+}

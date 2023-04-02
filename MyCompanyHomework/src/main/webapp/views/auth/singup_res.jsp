@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +27,16 @@
 				<h3 style="color: ${color}">
 					${message}
 				</h3>
+				<hr>
+				<c:if test="${color== 'green' }">
+				 <h4>
+				 Email was sent to entered email</h4>
+				<br>
+				Email: <span style="color: blue">
+				
+					<c:out value=$"{email}"/>			
+				</span>
+				</c:if>
 				<!-- /Content placeholder -->
 			</div>
 		</div>

@@ -45,9 +45,6 @@ public class UsersService {
 				success = true;
 			}
 			
-			pstmt.close();
-			conn.close();
-			
 		}catch(ClassNotFoundException ex) {
 			System.out.println("addUser - classNotFoundException: " + ex.getMessage());
 			success = false;
@@ -60,6 +57,9 @@ public class UsersService {
 					pstmt.close();
 				if(conn!=null)
 					conn.close();
+				if(res!=null){
+					res.close();
+				}
 			}catch(SQLException ex) {
 				System.out.println("addUser - SQLException: " + ex.getMessage());
 				success = false;
@@ -69,8 +69,39 @@ public class UsersService {
 		return success;
 	}
 	
-	public boolean loginUser() {
-		return false;
+	public boolean loginUser(String login, String hashedPassword) {
+		boolean success = false;
+		try {
+			query = "select login passw from users";
+			query += " where login=? and passw=?";
+			conn = DbProvider.getMySqlConnection();
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, login);
+			pstmt.setString(2, hashedPassword);
+			
+			res = pstmt.executeQuery();
+			if(res.next())
+				success = true;
+			
+			
+		}catch(SQLException ex) {
+			System.out.println("SQL Exception - " + ex.getMessage());
+		}catch(ClassNotFoundException ex) {
+			System.out.println("CLassNotFound exception " + ex.getMessage());
+		}finally {
+			try {
+				pstmt.close();
+				conn.close();
+				res.close();
+			}
+			catch (SQLException ex) {
+				System.out.println("Closing exception " + ex.getMessage());
+			}catch(Exception ex) {
+				System.out.println("Closing exception " + ex.getMessage());
+			}
+			
+		}
+		return success;
 	}
 	
 }
